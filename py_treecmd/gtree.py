@@ -9,8 +9,8 @@ def main(params = None):
     if not params:
         params = sys.stdin.read().split('\n') 
     
-    patt = r'(?P<type>[A-Z])\s+' \
-           r'(?P<param>[\w/\\.-]+)'
+    patt = r'(?P<type>[A-Z])[\s\t]+' \
+           r'(?P<param>\S+)'
     
     P = []
     for param in params:
@@ -18,6 +18,19 @@ def main(params = None):
         if match:
             value = match.groupdict()
             P.append(f"{value['param']} [{value['type']}]")
+        else:
+            patt_rename = r'(?P<type>\w+)[\s\t]+' \
+                          r'(?P<param1>\S+)[\s\t]+' \
+                          r'(?P<param2>\S+)'
+            
+            match_rename = re.match(patt_rename, param)
+            if match_rename:
+                value_r = match_rename.groupdict()
+                p1 = PurePath(value_r['param1'])
+                p2 = PurePath(value_r['param2'])
+                p  = p1.parent.joinpath(f'({p1.name} -> {p2.name})')
+                
+                P.append(f"{p} [{value_r['type'][0]}]")
 
     N = {}
     
@@ -75,6 +88,6 @@ if __name__ == "__main__":
     from helpers import getter
 
     main()
-    # main(getter.DummyDataFromFile('ref.txt'))
+    # main(getter.DummyDataFromFile('ref2.txt'))
 
     
