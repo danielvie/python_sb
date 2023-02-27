@@ -1,12 +1,18 @@
+target=gtree.py
 
 all: r
+
+b: build-exe
 
 r: run
 
 rg: run-git
 
 run:
-	python main.py
+	python $(target)
 
 run-git:
-	git compare head~1 | python main.py
+	git compare head~1 | python $(target)
+	
+build-exe:
+	pyinstaller --onefile $(target)
