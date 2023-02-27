@@ -1,26 +1,21 @@
 #!/usr/bin/env python
 
 from pathlib import PurePath
-import select
 import sys
 import re
-from helpers import getter
 
-
-if __name__ == "__main__":
+def main(params = None):
     
-    if select.select([sys.stdin, ], [], [], 0.0)[0]:
+    if not params:
         params = sys.stdin.read().split('\n') 
-    else:
-        params = getter.DummyParamsGit()
-
     
     patt = r'(?P<type>[A-Z])\s+' \
-           r'(?P<param>[\w/\\.]+)'
+           r'(?P<param>[\w/\\.-]+)'
     
     P = []
     for param in params:
-        if match := re.match(patt, param):
+        match = re.match(patt, param)
+        if match:
             value = match.groupdict()
             P.append(f"{value['param']} [{value['type']}]")
 
@@ -74,3 +69,12 @@ if __name__ == "__main__":
             show(N[ni], tab + 1)
     
     show(N)
+
+if __name__ == "__main__":
+    
+    from helpers import getter
+
+    main()
+    # main(getter.DummyDataFromFile('ref.txt'))
+
+    

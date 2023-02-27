@@ -1,3 +1,16 @@
+from pathlib import Path
+
+def DummyDataFromFile(file:str):
+    path = Path(file)
+    if path.exists():
+        with open(path, 'r') as f:
+            params = f.readlines()
+        return params
+    else:
+        print("error, file not found")
+        return []
+
+
 def DummyData():
     params = [
         'M       main.py', 

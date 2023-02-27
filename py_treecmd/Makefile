@@ -1,5 +1,5 @@
 
-all: rg
+all: r
 
 r: run
 
@@ -9,4 +9,4 @@ run:
 	python main.py
 
 run-git:
-	git delta init | python main.py
+	git compare head~1 | python main.py
