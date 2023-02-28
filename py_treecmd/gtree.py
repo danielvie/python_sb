@@ -50,11 +50,6 @@ def main(params = None):
     char_end    = "└─"
 
     def show(N, tab = 0):
-        # instantiating persistent var in function
-        if not hasattr(show, 'pipe'):
-            show.pipe = True
-            print(' ')
-
         numel_p = len(N)
 
         for i,ni in enumerate(N):
@@ -68,9 +63,6 @@ def main(params = None):
             else:
                 tab_ = f'{tab_}{char_end}'
                 
-            if tab > 0 and show.pipe:
-                tab_ = f'{char_pipe}{tab_[1:]}'
-
             # writing message
             msg = f'{tab_}{ni}'
             print(msg)
@@ -88,6 +80,6 @@ if __name__ == "__main__":
     from helpers import getter
 
     main()
-    # main(getter.DummyDataFromFile('ref2.txt'))
+    # main(getter.DummyDataFromFile('ref.txt'))
 
     
