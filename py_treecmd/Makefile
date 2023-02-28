@@ -8,6 +8,9 @@ r: run
 
 rg: run-git
 
+test:
+	python $(target) --test
+
 run:
 	python $(target)
 
