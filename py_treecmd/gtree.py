@@ -49,18 +49,20 @@ def Buffer2Tree(params):
     
     return tree
 
-def show(N, tab = 0):
+def show(N, pretab = ''):
     numel_p = len(N)
 
     for i,ni in enumerate(N):
         nchildren = len(N[ni])
         
         # adding joints and pipes
-        tab_ = f'{char_pipe}  '*tab
+        tab_ = f'{pretab}  '
 
+        flag_last = False
         if i < numel_p - 1:
             tab_ = f'{tab_}{char_middle}'
         else:
+            flag_last = True
             tab_ = f'{tab_}{char_end}'
             
         # writing message
@@ -71,7 +73,11 @@ def show(N, tab = 0):
         if nchildren == 0:
             continue
         
-        show(N[ni], tab + 1)
+        if flag_last:
+            nexttab = f'{pretab}   '
+        else:
+            nexttab = f'{pretab}  {char_pipe}'
+        show(N[ni], nexttab)
 
 def main(params = None):
     
@@ -79,6 +85,7 @@ def main(params = None):
         params = sys.stdin.read().split('\n') 
     
     tree = Buffer2Tree(params)
+    print(' ')
     show(tree)
 
 if __name__ == "__main__":
