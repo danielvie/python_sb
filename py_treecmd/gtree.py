@@ -16,11 +16,13 @@ def Buffer2Tree(params):
            r'(?P<param>\S+)'
     
     P = []
+    flag_tree = True
     for param in params:
         match = re.match(patt, param)
         if match:
             value = match.groupdict()
             P.append(f"{value['param']} [{value['type']}]")
+            flag_tree = False
         else:
             patt_rename = r'(?P<type>\w+)[\s\t]+' \
                           r'(?P<param1>\S+)[\s\t]+' \
@@ -34,6 +36,14 @@ def Buffer2Tree(params):
                 p  = p1.parent.joinpath(f'({p1.name} -> {p2.name})')
                 
                 P.append(f"{p} [{value_r['type'][0]}]")
+
+    if flag_tree:
+        patt = r'\S+'
+        for param in params:
+            match = re.match(patt, param)
+            if match:
+                value = match[0]
+                P.append(value)
 
     tree = {}
     

@@ -1,10 +1,14 @@
 target=gtree.py
 
-all: r
+all: t
 
 b: build-exe
 
 r: run
+
+t: test
+
+i: install
 
 rg: run-git
 
@@ -19,3 +23,6 @@ run-git:
 	
 build-exe:
 	pyinstaller --onefile $(target)
+	
+install:
+	cp dist/gtree.exe C:/SANDBOX/APP/bin
