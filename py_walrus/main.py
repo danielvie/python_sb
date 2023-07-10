@@ -2,7 +2,7 @@
 if __name__ == "__main__":
     
     # ex 1
-    print(happy := True)
+    # print(happy := True)
     
     # ex 2
     # foods = list()
@@ -13,7 +13,7 @@ if __name__ == "__main__":
     #     foods.append(food)
     # print(foods)
     
-    foods_ = list()
+    # foods_ = list()
     while (food_ := input("What food do you like?:: ")) != "quit":
         foods_.append(food_)
     print(foods_)
